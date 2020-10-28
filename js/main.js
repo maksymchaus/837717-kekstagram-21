@@ -66,3 +66,35 @@ const renderUserPhotos = function (data) {
 
 genereteData();
 renderUserPhotos(dataPhotos);
+
+//------------------------------------------------------------------------------//
+const bigPhoto = document.querySelector('.big-picture');
+bigPhoto.classList.remove('hidden');
+const getComment = function (obj) {
+  return `<li class="social__comment">
+    <img class="social__picture" src="${obj.avatar}" alt="${obj.name}" width="35" height="35">
+    <p class="social__text">${obj.message}</p>
+  </li>`
+};
+
+const renderBigPhoto = function (photoObj) {
+  bigPhoto.querySelector('.big-picture__img img').src = photoObj.url;
+  bigPhoto.querySelector('.likes-count').textContent = photoObj.likes;
+  bigPhoto.querySelector('.comments-count').textContent = photoObj.comments.length;
+  bigPhoto.querySelector('.social__caption').textContent = photoObj.description;
+  const commentsHtml = photoObj.comments.map(function (comment) {
+    let commentMap = getComment(comment);
+    return commentMap;
+  });
+
+  bigPhoto.querySelector('.social__comments').innerHTML = commentsHtml.join('');
+};
+
+const hideElements = function () {
+  bigPhoto.querySelector('.social__comment-count').classList.add('hidden');
+  bigPhoto.querySelector('.comments-loader').classList.add('hidden');
+  document.querySelector('body').classList.add('modal-open');
+}
+
+renderBigPhoto(dataPhotos[0]);
+hideElements();
