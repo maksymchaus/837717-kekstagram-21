@@ -140,23 +140,14 @@ document.addEventListener('keydown', function (evt) {
 });
 
 // ------------------валидация--------------------
-const heshInput = imgUploadOverlay.querySelector('.text__hashtags');
-const pattern = /^#([а-я]|[А-Я]|[a-zA-Z]|[0-9]){1,20}$/;
-var MAX_INPUT_LENGTH = 20;
+var HASHTAGS_MAX_COUNT = 5;
+var HASHTAG_REG_EXP = /^#([а-я]|[А-Я]|[a-zA-Z]|[0-9]){1,20}$/;
 
-heshInput.addEventListener('input', function () {
-  let value = heshInput.value.split(' ');
-  let valueLength = heshInput.value.length;
-  // pattern.test(value);
-  console.log(value);
+var USER_MESSAGE = {
+  LESS_THEN_FIVE: 'Нельзя указать больше пяти хэш-тегов',
+  NO_DUPLICATES: 'один и тот же хэш-тег не может быть использован дважды',
+  CORRECT: 'Не верный формат хештега'
+};
 
-  if (valueLength > MAX_INPUT_LENGTH) {
-    heshInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
-  } else {
-    heshInput.setCustomValidity('');
-  }
-
-  heshInput.reportValidity();
-});
-
+var inputHashtags = document.querySelector('.text__hashtags');
 
