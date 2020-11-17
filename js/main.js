@@ -69,7 +69,7 @@ renderUserPhotos(dataPhotos);
 
 //------------------------------------------------------------------------------//
 const bigPhoto = document.querySelector('.big-picture');
-bigPhoto.classList.remove('hidden');
+// bigPhoto.classList.remove('hidden');
 const getComment = function (obj) {
   return `<li class="social__comment">
     <img class="social__picture" src="${obj.avatar}" alt="${obj.name}" width="35" height="35">
@@ -98,3 +98,65 @@ const hideElements = function () {
 
 renderBigPhoto(dataPhotos[0]);
 hideElements();
+
+// -----------------------Загрузка изображения и показ формы редактирования-----
+const imgUploadInput = document.querySelector('.img-upload__input');
+const imgUploadOverlay = document.querySelector('.img-upload__overlay');
+const imgUploadButton = imgUploadOverlay.querySelector('.img-upload__cancel');
+const body = document.querySelector('body');
+
+// --------показ формы редактирования--------
+
+const openImgUploadOverlay = function (evt) {
+  imgUploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+}
+
+imgUploadInput.addEventListener('click', function () {
+  openImgUploadOverlay();
+});
+
+imgUploadInput.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    openImgUploadOverlay();
+  }
+});
+
+// --------закрытие формы редактирования--------
+
+const closeImgUploadOverlay = function (evt) {
+  imgUploadOverlay.classList.add('hidden');
+  body.classList.remove('modal-open');
+}
+
+imgUploadButton.addEventListener('click', function () {
+  closeImgUploadOverlay();
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27) {
+    closeImgUploadOverlay();
+  }
+});
+
+// ------------------валидация--------------------
+const heshInput = imgUploadOverlay.querySelector('.text__hashtags');
+const pattern = /^#([а-я]|[А-Я]|[a-zA-Z]|[0-9]){1,20}$/;
+var MAX_INPUT_LENGTH = 20;
+
+heshInput.addEventListener('input', function () {
+  let value = heshInput.value.split(' ');
+  let valueLength = heshInput.value.length;
+  // pattern.test(value);
+  console.log(value);
+
+  if (valueLength > MAX_INPUT_LENGTH) {
+    heshInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
+  } else {
+    heshInput.setCustomValidity('');
+  }
+
+  heshInput.reportValidity();
+});
+
+
