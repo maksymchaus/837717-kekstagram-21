@@ -146,8 +146,7 @@ var HASHTAG_REG_EXP = /^#([а-я]|[А-Я]|[a-zA-Z]|[0-9]){1,20}$/;
 var USER_MESSAGE = {
   LESS_THEN_FIVE: 'Нельзя указать больше пяти хэш-тегов',
   NO_DUPLICATES: 'один и тот же хэш-тег не может быть использован дважды',
-  CORRECT: 'Не верный формат хештега'
+  CORRECT: 'Не верный формат'
 };
 
 var inputHashtags = document.querySelector('.text__hashtags');
-
